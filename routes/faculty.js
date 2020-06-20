@@ -262,4 +262,24 @@ router.get('/courses/:year/:course', passport.authenticate('faculty', {
         );
 });
 
+// @route   GET api/faculty/students
+// @desc    Get course by year and course name
+// @access  Public
+router.get('/students/:year', passport.authenticate('faculty', {
+    session: false
+}), (req, res) => {
+    db.Student.findAll({
+        where: {
+            year: req.params.year,
+            dept: req.user.dept
+        }
+    })
+        .then(courses => res.json(courses))
+        .catch(err =>
+            res.status(404).json({
+                nopostfound: 'No post found with that ID'
+            })
+        );
+});
+
 module.exports = router;
