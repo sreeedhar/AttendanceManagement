@@ -3,6 +3,9 @@ const db = require("./models");
 const app = express();
 const PORT = 5000 || process.env.PORT;
 const passport = require('passport');
+const faculty = require('./routes/faculty');
+const student = require('./routes/students');
+const parent = require('./routes/parents');
 const path = require('path');
 
 app.use(express.urlencoded({
@@ -14,8 +17,12 @@ app.use(express.json());
 app.use(passport.initialize());
 
 // Passport Config
+require('./config/passport')(passport);
 
 //Routes
+app.use("/api/faculty", faculty);
+app.use("/api/student", student);
+app.use("/api/parent", parent);
 
 db.sequelize.authenticate()
     .then(() => {
