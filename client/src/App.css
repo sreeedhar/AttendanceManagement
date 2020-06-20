@@ -1,38 +1,93 @@
-.App {
-  text-align: center;
+* {
+  padding: 0;
+  margin: 0;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+body {
+  font-family: "Montserrat", sans-serif;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.content {
+  height: 100vh;
   display: flex;
-  flex-direction: column;
+
+}
+
+section {
+  height: 100%;
+  display: flex;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  flex: 1;
+  transition: all 0.5s;
 }
 
-.App-link {
-  color: #61dafb;
+section:hover {
+  flex: 2;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+
+.student {
+  background: orange;
+  background-position: center;
+  background-size: cover;
+  background-blend-mode: multiply;
+}
+
+/*.student:hover{
+    filter: blur(5px);
+}*/
+
+
+.faculty {
+  background: #d2ff09;
+  background-position: center;
+  background-size: cover;
+  background-blend-mode: multiply;
+}
+
+
+.parent {
+  background: #09ff78;
+  background-position: center;
+  background-size: cover;
+  background-blend-mode: multiply;
+}
+
+.bln:hover {
+
+  color: #1ebba3;
+  font-weight: bold;
+}
+
+/* Navbar */
+.navbar {
+
+  text-transform: uppercase;
+  font-weight: 900;
+  font-size: 0.9rem;
+  letter-spacing: 0.1rem;
+  background-color: rgba(0, 0, 0, 0.75) !important;
+}
+
+.navbar-brand img {
+
+  height: 2.1rem;
+}
+
+.navbar-nav li {
+
+  padding-right: .7rem;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+
+  color: #fff;
+  padding-top: .8rem;
+}
+
+.navbar-dark .navbar-nav .nav-link.active,
+.navbar-dark .navbar-nav .nav-link:hover {
+
+  color: #1ebba3;
 }

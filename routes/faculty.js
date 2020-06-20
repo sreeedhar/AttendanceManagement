@@ -151,8 +151,8 @@ router.post("/login", [
                     if (isMatch) {
                         const payload = {
                             email: email,
-                            name: name,
-                            coursename: user.coursename
+                            name: user.name,
+                            dept: user.dept
                         }
 
                         jwt.sign(

@@ -209,7 +209,7 @@ router.get('/courses', passport.authenticate('student', {
         );
 });
 
-// @route   GET api/student/courses/:year/:course
+// @route   GET api/student/courses/:course
 // @desc    Get course by year and course name
 // @access  Public
 router.get('/courses/:year/:course', passport.authenticate('faculty', {
