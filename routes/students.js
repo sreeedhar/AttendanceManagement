@@ -229,5 +229,120 @@ router.get('/courses/:year/:course', passport.authenticate('faculty', {
         );
 });
 
+// @route   GET api/faculty/attendance/:year/:roll
+// @desc    Get attendance of a student
+// @access  Private
+router.get('/attendance/:course', passport.authenticate('student', {
+    session: false
+}), (req, res) => {
+
+    db.Attendance.findAll({
+        where: {
+            roll: req.user.roll,
+            year: req.user.year,
+            course: req.params.course
+        }
+    })
+        .then(records => {
+            res.json(records);
+        })
+        .catch(err => console.log(err.message));
+});
+
+
+// @route   GET api/faculty/attendance/:year/:roll
+// @desc    Get attendance of a student
+// @access  Private
+router.get('/attendance/:course', passport.authenticate('student', {
+    session: false
+}), (req, res) => {
+
+    db.Attendance.findAll({
+        where: {
+            roll: req.user.roll,
+            year: req.user.year,
+            course: req.params.course
+        }
+    })
+        .then(records => {
+            res.json(records);
+        })
+        .catch(err => console.log(err.message));
+});
+
+// @route   GET api/faculty/attendance/:year/:roll
+// @desc    Get attendance of a student
+// @access  Private
+router.get('/percent/:course', passport.authenticate('student', {
+    session: false
+}), (req, res) => {
+
+    db.Attendance.findAll({
+        where: {
+            roll: req.user.roll,
+            year: req.user.year,
+            course: req.params.course
+        }
+    })
+        .then(records => {
+            let present = 0;
+            let total = 0;
+            records.map(record => {
+                total++;
+                if (record.status === "Present") present++;
+            })
+
+            res.send({
+                Present: present,
+                Absent: total - present,
+                Percent: present / total * 100
+            })
+        })
+        .catch(err => console.log(err.message));
+});
+
+// @route   GET api/faculty/attendance/:year/:roll
+// @desc    Get attendance of a student
+// @access  Private
+router.get('/percent', passport.authenticate('student', {
+    session: false
+}), async (req, res) => {
+    var arr = [];
+    db.Course.findAll({
+        where: {
+            dept: req.user.dept,
+            year: req.user.year
+        }
+    })
+        .then(async courses => {
+            const ans = await courses.map(course => {
+                db.Attendance.findAll({
+                    where: {
+                        roll: req.user.roll,
+                        year: req.user.year,
+                        course: course.course
+                    }
+                })
+                    .then(records => {
+                        let present = 0;
+                        let total = 0;
+                        records.map(record => {
+                            total++;
+                            if (record.status === "Present") present++;
+                        })
+
+
+                        ans.push({
+                            course: course.course,
+                            present: present,
+                            percent: present / total * 100
+                        })
+                    })
+
+            })
+            console.log(await Promise.all(ans));
+        })
+
+});
 
 module.exports = router;

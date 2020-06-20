@@ -283,10 +283,10 @@ router.get('/students/:year', passport.authenticate('faculty', {
         );
 });
 
-// @route   GET api/faculty/attendance/:year/:roll
+// @route   POST api/faculty/attendance/:year/:roll
 // @desc    Mark attendance
 // @access  Private
-router.post('/attendance/:year/:roll', passport.authenticate('faculty', {
+router.post('/attendance/:year/:roll/:course', passport.authenticate('faculty', {
     session: false
 }), (req, res) => {
     db.Student.findOne({
@@ -304,7 +304,8 @@ router.post('/attendance/:year/:roll', passport.authenticate('faculty', {
                 where: {
                     faculty: req.user.name,
                     year: req.params.year,
-                    dept: req.user.dept
+                    dept: req.user.dept,
+                    course: req.params.course
                 }
             })
                 .then(course => {
@@ -332,14 +333,16 @@ router.post('/attendance/:year/:roll', passport.authenticate('faculty', {
 // @route   GET api/faculty/attendance/:year/:roll
 // @desc    Get attendance of a student
 // @access  Private
-router.get('/attendance/:year/:roll', passport.authenticate('faculty', {
+router.get('/attendance/:year/:roll/:course', passport.authenticate('faculty', {
     session: false
 }), (req, res) => {
     db.Course.findOne({
         where: {
             faculty: req.user.name,
             year: req.params.year,
-            dept: req.user.dept
+            dept: req.user.dept,
+            course: req.params.course
+
         }
     })
         .then(course => {
@@ -360,7 +363,7 @@ router.get('/attendance/:year/:roll', passport.authenticate('faculty', {
 // @route   GET api/faculty/attendance/:year/:roll
 // @desc    Get attendance of a student
 // @access  Private
-router.put('/attendance/:year/:roll/:date', passport.authenticate('faculty', {
+router.put('/attendance/:year/:roll/:course/:date', passport.authenticate('faculty', {
     session: false
 }), (req, res) => {
     const { status } = req.body;
@@ -369,7 +372,9 @@ router.put('/attendance/:year/:roll/:date', passport.authenticate('faculty', {
         where: {
             faculty: req.user.name,
             year: req.params.year,
-            dept: req.user.dept
+            dept: req.user.dept,
+            course: req.params.course
+
         }
     })
         .then(course => {

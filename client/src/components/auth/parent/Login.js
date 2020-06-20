@@ -5,6 +5,7 @@ import { setAlert } from "../../../actions/alert";
 import { loginParent, loadParent, parentRegister } from '../../../actions/auth';
 import PropTypes from "prop-types";
 import store from '../../../store';
+import '../Slide.css'
 
 const ParentLogin = ({ setAlert, parentRegister, loginParent, isAuthenticated }) => {
 

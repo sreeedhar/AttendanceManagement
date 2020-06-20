@@ -5,6 +5,7 @@ import { setAlert } from "../../../actions/alert";
 import { loginStudent, loadStudent, studentRegister } from '../../../actions/auth';
 import PropTypes from "prop-types";
 import store from '../../../store';
+import '../Slide.css'
 
 const StudentLogin = ({ setAlert, studentRegister, loginStudent, isAuthenticated }) => {
 
