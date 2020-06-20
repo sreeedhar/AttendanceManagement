@@ -6,8 +6,8 @@ import {
 
 const initialState = {
     posts: [],
-    subjects: [],
-    subject: null,
+    courses: [],
+    course: null,
     post: null,
     loading: true,
     error: {}
@@ -20,14 +20,14 @@ export default function (state = initialState, action) {
         case GET_COURSES_STUDENT:
             return {
                 ...state,
-                posts: payload,
+                courses: payload,
                 loading: false
             };
 
         case GET_COURSE:
             return {
                 ...state,
-                post: payload,
+                course: payload,
                 loading: false
             };
 

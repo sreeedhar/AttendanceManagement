@@ -1,9 +1,12 @@
 import React, { Fragment } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import PrivateRoute from './components/routing/PrivateRoute';
 
 
 
 //Components
+
+//Authentication
 import Alert from './components/layout/Alert';
 import Landing from './components/layout/Landing/Landing';
 import StudentLogin from './components/auth/student/StudentLogin';
@@ -12,6 +15,10 @@ import FacultyLogin from './components/auth/faculty/FacultyLogin';
 import FacultyRegister from './components/auth/faculty/FacultyRegister';
 import ParentLogin from './components/auth/parent/ParentLogin';
 import ParentRegister from './components/auth/parent/ParentRegister';
+
+//Student view
+import StudentHome from './components/dashboard/student/StudentHome';
+
 
 // Redux
 import setAuthToken from './utils/setAuthToken';
@@ -40,6 +47,7 @@ function App() {
             <Route exact path='/student/register' component={StudentRegister} />
             <Route exact path='/parent/login' component={ParentLogin} />
             <Route exact path='/parent/register' component={ParentRegister} />
+            <PrivateRoute exact path='/student/courses' component={StudentHome} />
           </Switch>
 
         </Fragment>

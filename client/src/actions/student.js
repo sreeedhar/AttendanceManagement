@@ -13,7 +13,7 @@ export const getCourses = () => async dispatch => {
         const res = await axios.get('/api/student/courses');
 
         dispatch({
-            type: GET_COURSES,
+            type: GET_COURSES_STUDENT,
             payload: res.data
         });
     } catch (err) {

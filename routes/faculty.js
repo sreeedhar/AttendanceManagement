@@ -8,6 +8,7 @@ const {
     validationResult
 } = require("express-validator");
 const passport = require('passport');
+const { restart } = require("nodemon");
 const keys = {
     secretOrKey: "secret"
 }
@@ -244,7 +245,7 @@ router.get('/courses', passport.authenticate('faculty', {
 
 // @route   GET api/faculty/courses/:year/:course
 // @desc    Get course by year and course name
-// @access  Public
+// @access  Private
 router.get('/courses/:year/:course', passport.authenticate('faculty', {
     session: false
 }), (req, res) => {
@@ -263,8 +264,8 @@ router.get('/courses/:year/:course', passport.authenticate('faculty', {
 });
 
 // @route   GET api/faculty/students
-// @desc    Get course by year and course name
-// @access  Public
+// @desc    Get students of a year
+// @access  Private
 router.get('/students/:year', passport.authenticate('faculty', {
     session: false
 }), (req, res) => {
@@ -274,12 +275,125 @@ router.get('/students/:year', passport.authenticate('faculty', {
             dept: req.user.dept
         }
     })
-        .then(courses => res.json(courses))
+        .then(students => res.json(students))
         .catch(err =>
             res.status(404).json({
                 nopostfound: 'No post found with that ID'
             })
         );
 });
+
+// @route   GET api/faculty/attendance/:year/:roll
+// @desc    Mark attendance
+// @access  Private
+router.post('/attendance/:year/:roll', passport.authenticate('faculty', {
+    session: false
+}), (req, res) => {
+    db.Student.findOne({
+        where: {
+            roll: req.params.roll
+        }
+    })
+        .then(student => {
+            const {
+                date,
+                status
+            } = req.body;
+
+            db.Course.findOne({
+                where: {
+                    faculty: req.user.name,
+                    year: req.params.year,
+                    dept: req.user.dept
+                }
+            })
+                .then(course => {
+                    db.Attendance.create({
+                        roll: req.params.roll,
+                        course: course.course,
+                        year: req.params.year,
+                        name: student.name,
+                        date: date,
+                        status: status
+                    }).then(record => res.json(record))
+                        .catch(err => console.error(err.message))
+
+
+                })
+
+        })
+        .catch(err =>
+            res.status(404).json({
+                nopostfound: 'No post found with that ID'
+            })
+        );
+});
+
+// @route   GET api/faculty/attendance/:year/:roll
+// @desc    Get attendance of a student
+// @access  Private
+router.get('/attendance/:year/:roll', passport.authenticate('faculty', {
+    session: false
+}), (req, res) => {
+    db.Course.findOne({
+        where: {
+            faculty: req.user.name,
+            year: req.params.year,
+            dept: req.user.dept
+        }
+    })
+        .then(course => {
+            db.Attendance.findAll({
+                where: {
+                    roll: req.params.roll,
+                    year: req.params.year,
+                    course: course.course
+                }
+            })
+                .then(records => res.json(records))
+                .catch(err => console.log(err.message));
+
+
+        })
+});
+
+// @route   GET api/faculty/attendance/:year/:roll
+// @desc    Get attendance of a student
+// @access  Private
+router.put('/attendance/:year/:roll/:date', passport.authenticate('faculty', {
+    session: false
+}), (req, res) => {
+    const { status } = req.body;
+
+    db.Course.findOne({
+        where: {
+            faculty: req.user.name,
+            year: req.params.year,
+            dept: req.user.dept
+        }
+    })
+        .then(course => {
+            db.Attendance.findOne({
+                where: {
+                    roll: req.params.roll,
+                    year: req.params.year,
+                    course: course.course,
+                    date: req.params.date
+                }
+            })
+                .then(record => {
+                    record.status = status;
+                    record.save();
+                    res.json(record)
+                })
+                .catch(err => console.log(err.message));
+
+
+        })
+});
+
+
+
+
 
 module.exports = router;
