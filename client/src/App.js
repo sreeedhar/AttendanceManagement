@@ -9,12 +9,9 @@ import PrivateRoute from './components/routing/PrivateRoute';
 //Authentication
 import Alert from './components/layout/Alert';
 import Landing from './components/layout/Landing/Landing';
-import StudentLogin from './components/auth/student/StudentLogin';
-import StudentRegister from './components/auth/student/StudentRegister';
-import FacultyLogin from './components/auth/faculty/FacultyLogin';
-import FacultyRegister from './components/auth/faculty/FacultyRegister';
-import ParentLogin from './components/auth/parent/ParentLogin';
-import ParentRegister from './components/auth/parent/ParentRegister';
+import StudentLogin from './components/auth/student/Login';
+import FacultyLogin from './components/auth/faculty/Login';
+import ParentLogin from './components/auth/parent/Login';
 
 //Student view
 import StudentHome from './components/dashboard/student/StudentHome';
@@ -41,12 +38,9 @@ function App() {
           <Switch>
             <Route exact path='/login' component={Choose} />
             <Route exact path='/register' component={Choose} />
-            <Route exact path='/faculty/register' component={FacultyRegister} />
             <Route exact path='/faculty/login' component={FacultyLogin} />
             <Route exact path='/student/login' component={StudentLogin} />
-            <Route exact path='/student/register' component={StudentRegister} />
             <Route exact path='/parent/login' component={ParentLogin} />
-            <Route exact path='/parent/register' component={ParentRegister} />
             <PrivateRoute exact path='/student/courses' component={StudentHome} />
           </Switch>
 

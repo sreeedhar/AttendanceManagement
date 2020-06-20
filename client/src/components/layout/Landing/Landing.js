@@ -5,168 +5,144 @@ import { Link } from 'react-router-dom'
 export const Landing = () => {
 
     return (
-        <div className="landing">
-            <section className="colored-section" id="title">
+        <div data-spy="scroll" data-target="#navbarResponsive">
+            <div id="home">
 
-                <div className="container-fluid">
-
-                    <div className="row">
-
-                        <div className="col-lg-6">
-                            <h1 style={{ fontWeight: 800 }} className="big-heading"><b> The #1 online classroom assessment and resource quid pro quo.</b></h1>
-                            <h2 style={{ fontWeight: 300 }} className="caption"><b>Turning in assignments or exchanging resources between students and faculty has never been more easier.</b></h2>
-
-                        </div>
-
-                        <div className="col-lg-6">
-                            <img className="title-image" alt="title-image-mockup" />
-                        </div>
-
-                    </div>
-
-                </div>
-            </section>
-
-            <section className="white-section" id="features">
-                <div className="container-fluid">
-                    <div className="row">
-                        <div className="feature-box col-lg-4">
-                            <i className="icon fas fa-check-circle fa-4x"></i>
-                            <h3 style={{ color: "black" }} className="feature-title">Easy to use.</h3>
-                            <p style={{ color: "#8f8f8f" }}>Simple and super-fast transfer between students and faculty.</p>
-                        </div>
-                        <div className="feature-box col-lg-4">
-                            <i className="icon fas fa-file-code fa-4x"></i>
-                            <h3 style={{ color: "black" }} className="feature-title">Simple code-sharing process.</h3>
-                            <p style={{ color: "#8f8f8f" }}>Code submission for evaluation, without any hassles.</p>
-
-                        </div>
-                        <div className="feature-box col-lg-4">
-                            <i className="icon fas fa-stopwatch fa-4x"></i>
-                            <h3 style={{ color: "black" }} className="feature-title">Track submission times.</h3>
-                            <p style={{ color: "#8f8f8f" }}>Keep track of deadlines, all in one place. </p>
-                        </div>
-                        <div className="feature-box col-lg-4">
-                            <i className="icon fas fa-archive fa-4x"></i>
-                            <h3 style={{ color: "black" }} className="feature-title">Maintain archives.</h3>
-                            <p style={{ color: "#8f8f8f" }}>Save your submissions and notes for later reference. </p>
-                        </div>
-                        <div className="feature-box col-lg-4">
-                            <i className="icon fas fa-comments fa-4x"></i>
-                            <h3 style={{ color: "black" }} className="feature-title">Elegant Comment threads.</h3>
-                            <p style={{ color: "#8f8f8f" }}>For collective learning to take place. </p>
-                        </div>
-                        <div className="feature-box col-lg-4">
-                            <i className="icon fas fa-shield-alt fa-4x"></i>
-                            <h3 style={{ color: "black" }} className="feature-title">Safety of data ensured.</h3>
-                            <p style={{ color: "#8f8f8f" }}>Gone are the days of plagiarism and data-theft. Your files cannot be more safer.</p>
-                        </div>
-
-                    </div>
-                </div>
-
-            </section>
-
-
-            <section className="colored-section" id="testimonial">
-                <br /><br />
-                <h1 className="testimonial-head">What our customers are saying...</h1>
-
-                <div id="testimonial-carousel" className="carousel slide" data-ride="false">
-                    <div className="carousel-inner">
-                        <div className="carousel-item active container-fluid">
-                            <h2 className="testimonial-text"><em>"StudyBuddy helps me evaluate assignments from the comfort of my home."</em></h2>
-                            <img className="testimonial-image" alt="sir-profile" />
-                            <em>Dr.Jagadeesh Kakarla, Professor</em>
-                        </div>
-                        <div className="carousel-item container-fluid">
-                            <h2 className="testimonial-text"><em>"StudyBuddy is the buddy in school I never had."</em></h2>
-                            <img className="testimonial-image" alt="lokesh-profile" />
-                            <em>Lokeshwer, Student</em>
-                        </div>
-                        <div className="carousel-item container-fluid">
-                            <h2 className="testimonial-text"><em>"I use StudyBuddy to refer to all notes I have ever been sent. Its a lifesaver before exams!"</em></h2>
-                            <img className="testimonial-image" alt="sam-profile" />
-                            <em>Samrat, Student</em>
-                        </div>
-
-                    </div>
-                    <a className="carousel-control-prev" href="#testimonial-carousel" role="button" data-slide="prev">
-                        <span className="carousel-control-prev-icon"></span>
+                <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+                    <a class="navbar-brand" href="index.html">
+                        <img src={require("./SecondaryReversedLogo.png")} />
                     </a>
-                    <a className="carousel-control-next" href="#testimonial-carousel" role="button" data-slide="next">
-                        <span className="carousel-control-next-icon"></span>
-                    </a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarResponsive">
+                        <ul class="navbar-nav ml-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" href="#home">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#features">Features</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#contact">Contact</a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+
+                <div class="landing">
+                    <div class="home-wrap">
+                        <div class="home-inner">
+                            <div class="home-bg">
+
+                            </div>
+
+                        </div>
+                    </div>
                 </div>
-                <br />
-                <br />
-                <br />
-                <br />
+                <div class="caption text-center" style={{ textAlign: "center" }}>
+                    <h1>Welcome to iiitdm's <br />web-based attendance management system</h1>
+                    <h3></h3>
+                    <Link class="btn btn-outline-light btn-lg" to="/login">Get Started</Link>
+                </div>
 
-            </section>
+
+            </div>
 
 
-            <section className="white-section" id="team">
+            <div id="features" class="offset">
+                <div class="white-section">
+                    <div class="narrow">
+                        <div class="col-12">
+                            <h3 class="heading">Features</h3>
+                            <div class="heading-underline"></div>
+
+                            <div class="row text-center">
+                                <div class="col-md-4">
+                                    <div class="feature">
+                                        <i class="fas fa-stream fa-4x" data-fa-transform="shrink-4.15 up-4.5"></i>
+                                        <h3>Real-time Monitoring </h3>
+                                        <p>Provides convenient and real-time monitoring of the student's attendance</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="feature">
+                                        <i class="fas fa-archive fa-4x" data-fa-transform="shrink-3 up-5"></i>
+                                        <h3>Attendance Archive</h3>
+                                        <p>Provides a record archival policy. The attendance records will be archived after the
+                                    student has graduated.</p>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="feature">
+                                        <i class="fas fa-user-shield fa-4x" data-fa-transform="shrink-3 up-5"></i>
+                                        <h3>Parental View</h3>
+                                        <p>The student's attendance status can be monitored by their respective parents.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <section class="jumbotron" id="team">
                 <br /><br />
-                <h2 className="testimonial-head">Our Team</h2>
-                <p style={{ color: "#8f8f8f" }}>The minds at work behind StudyBuddy.</p>
-                <div className="row">
-                    <div className="feature-box col-lg-4">
-                        <img className="team-image" alt="Sreedhar pic" />
-                        <h3 style={{ color: "black" }} className="team-name">Sreedhar Arumugam</h3>
-                        <p style={{ color: "#8f8f8f" }}>Founder, StudyBuddy</p>
+                <h2 class="contact-title">Our Team</h2>
+                <div class="row">
+                    <div class="feature-box col-lg-4">
+                        <img class="team-image" src={require("./sreedhar.jpeg")} alt="Sreedhar pic" />
+                        <h3 class="team-name">Sreedhar Arumugam</h3>
                     </div>
-                    <div className="feature-box col-lg-4">
-                        <img className="team-image" alt="Pratyush pic" />
-                        <h3 style={{ color: "black" }} className="team-name">Pratyush VM</h3>
-                        <p style={{ color: "#8f8f8f" }}>CEO, StudyBuddy</p>
+                    <div class="feature-box col-lg-4">
+                        <img class="team-image" src={require("./pratyush.jpeg")} alt="Pratyush pic" />
+                        <h3 class="team-name">Pratyush VM</h3>
                     </div>
-                    <div className="feature-box col-lg-4">
-                        <img className="team-image" alt="Viknesh pic" />
-                        <h3 style={{ color: "black" }} className="team-name">Viknesh Rajaramon</h3>
-                        <p style={{ color: "#8f8f8f" }}>COO, StudyBuddy</p>
+                    <div class="feature-box col-lg-4">
+                        <img class="team-image" src={require("./viknesh.jpeg")} alt="Viknesh pic" />
+                        <h3 class="team-name">Viknesh Rajaramon</h3>
                     </div>
-                    <div className="feature-box col-lg-4">
-                        <img className="team-image" alt="Balajee pic" />
-                        <h3 style={{ color: "black" }} className="team-name">Balajee D</h3>
-                        <p style={{ color: "#8f8f8f" }}>CFO, StudyBuddy</p>
+                    <div class="feature-box col-lg-4">
+                        <img class="team-image" src={require("./balajee.jpeg")} alt="Balajee pic" />
+                        <h3 class="team-name">Balajee D</h3>
                     </div>
-                    <div className="feature-box col-lg-4">
-                        <img className="team-image" alt="Bavesh pic" />
-                        <h3 style={{ color: "black" }} className="team-name">Bavesh Balaji</h3>
-                        <p style={{ color: "#8f8f8f" }}>CDO, StudyBuddy</p>
+                    <div class="feature-box col-lg-4">
+                        <img class="team-image" src={require("./bavesh.jpeg")} alt="Bavesh pic" />
+                        <h3 class="team-name">Bavesh Balaji</h3>
                     </div>
-                    <div className="feature-box col-lg-4">
-                        <img className="team-image" t="BV pic" />
-                        <h3 style={{ color: "black" }} className="team-name">B Vignesh</h3>
-                        <p style={{ color: "#8f8f8f" }}>MD, StudyBuddy</p>
+                    <div class="feature-box col-lg-4">
+                        <img class="team-image" src={require("./bv.jpeg")} alt="BV pic" />
+                        <h3 class="team-name">B Vignesh</h3>
                     </div>
+
                 </div>
 
             </section>
 
 
-            <section className="container-fluid colored-section" id="cta">
-
-                <h4 className="big-heading1">Get your hands on the ultimate companion to remote classroom operations.</h4>
-                <Link to='/login' ><button type="button" className="download-button btn btn-lg btn-dark"><i className="fas fa-sign-in-alt"></i>  Login   </button></Link>
-                <Link to='/register' > <button type="button" className="download-button btn btn-lg btn-dark"><i className="fas fa-plus-square"></i>  Register   </button></Link>
-            </section>
 
 
-            <section className="white-section" id="footer">
-                <i className="social-icon fab fa-facebook-f"></i>
-                <i className="social-icon fab fa-github"></i>
-                <i className="social-icon fab fa-instagram"></i>
-                <i className="social-icon fas fa-envelope"></i>
-                <p style={{ color: "#8f8f8f" }}>© Copyright 2020 StudyBuddy</p>
-                <br />
-            </section>
+            <div id="contact" class="offset">
+                <footer>
+                    <div class="row justify-content-center">
+                        <div class="col-md-5 text-center">
+                            <img src={require("./SecondaryReversedLogo.png")} /> <br />
+                            <strong>Contact info</strong>
+                            <br />
+                            <p>Vandalur-Kelambakkam Road,
+                            Chennai: 600127.
+                        <br /><i class="fas fa-phone "></i> +91-44-2747 6300 | <i class="fas fa-print"></i> +91-44-2747
+                        6301.
+                        <br />
+                                <i class="fas fa-envelope"></i> office@iiitdm.ac.in</p>
+                        </div>
+                    </div>
+                </footer>
+            </div>
 
         </div>
-
-
-    )
+    );
 }
 
 export default Landing;
