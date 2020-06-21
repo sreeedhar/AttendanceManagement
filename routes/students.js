@@ -212,12 +212,12 @@ router.get('/courses', passport.authenticate('student', {
 // @route   GET api/student/courses/:course
 // @desc    Get course by year and course name
 // @access  Public
-router.get('/courses/:year/:course', passport.authenticate('faculty', {
+router.get('/courses/:course', passport.authenticate('faculty', {
     session: false
 }), (req, res) => {
     db.Course.findAll({
         where: {
-            year: req.params.year,
+            year: req.user.year,
             course: req.params.course
         }
     })

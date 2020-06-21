@@ -1,11 +1,12 @@
 import {
     GET_COURSE,
     GET_COURSES_STUDENT,
-    POST_ERROR
+    POST_ERROR,
+    GET_ATTENDANCE
 } from '../actions/types';
 
 const initialState = {
-    posts: [],
+    attendance: [],
     courses: [],
     course: null,
     post: null,
@@ -23,7 +24,12 @@ export default function (state = initialState, action) {
                 courses: payload,
                 loading: false
             };
-
+        case GET_ATTENDANCE:
+            return {
+                ...state,
+                attendance: payload,
+                loading: false
+            };
         case GET_COURSE:
             return {
                 ...state,

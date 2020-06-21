@@ -336,31 +336,21 @@ router.post('/attendance/:year/:roll/:course', passport.authenticate('faculty', 
 router.get('/attendance/:year/:roll/:course', passport.authenticate('faculty', {
     session: false
 }), (req, res) => {
-    db.Course.findOne({
-        where: {
-            faculty: req.user.name,
-            year: req.params.year,
-            dept: req.user.dept,
-            course: req.params.course
 
+    db.Attendance.findAll({
+        where: {
+            roll: req.params.roll,
+            year: req.params.year,
+            course: req.params.course
         }
     })
-        .then(course => {
-            db.Attendance.findAll({
-                where: {
-                    roll: req.params.roll,
-                    year: req.params.year,
-                    course: course.course
-                }
-            })
-                .then(records => res.json(records))
-                .catch(err => console.log(err.message));
+        .then(records => res.json(records))
+        .catch(err => console.log(err.message));
 
 
-        })
 });
 
-// @route   GET api/faculty/attendance/:year/:roll
+// @route   Update api/faculty/attendance/:year/:roll
 // @desc    Get attendance of a student
 // @access  Private
 router.put('/attendance/:year/:roll/:course/:date', passport.authenticate('faculty', {

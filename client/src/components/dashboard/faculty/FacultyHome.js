@@ -3,13 +3,13 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Spinner from '../../layout/Spinner';
 import { connect } from 'react-redux';
-import { getCourses, getAttendance } from '../../../actions/student';
+import { getCourses, } from '../../../actions/faculty';
 import { logout } from '../../../actions/auth';
 import Card from './Card'
 import Sidebar from './Sidebar'
 import './style.css'
 
-const StudentHome = ({ getAttendance, getCourses, logout, student: { loading, courses }, auth: { user } }) => {
+const FacultyHome = ({ getCourses, logout, faculty: { loading, courses }, auth: { user } }) => {
 
     useEffect(() => {
         getCourses();
@@ -34,11 +34,8 @@ const StudentHome = ({ getAttendance, getCourses, logout, student: { loading, co
                     <div className="container_head">
                         <div className="main-header">
                             <div className="main-header__heading">
-                                <h1 style={{ fontSize: "40px", fontWeight: "750px" }}>{user.name} </h1>
-                                <h4>{user.dept}{user.year} </h4>
-                            </div>
-                            <div className="main-header__updates">
-                                <h2>{user.roll}</h2>
+                                <h1 style={{ fontWeight: "750px" }}>{user.name} </h1>
+                                <h4 style={{ fontSize: "28" }}>{user.dept} department faculty</h4>
                             </div>
                         </div>
                     </div>
@@ -46,36 +43,13 @@ const StudentHome = ({ getAttendance, getCourses, logout, student: { loading, co
                     <div className="main-overview" style={{ color: "white" }}>
                         {courses.map(course => (
                             <ul>
-                                <Link to={`/student/courses/${course.course}`}>
+                                <Link to={`/faculty/courses/${course.course}`}>
                                     <Card course={course} />
                                 </Link>
                             </ul>
                         ))}
                     </div>
 
-                    <div className="main-cards">
-                        <div className="card">
-                            <h4>Attendance Track Record</h4>
-                            <canvas id="lineChart"></canvas>
-                        </div>
-                        <div className="card">
-                            <h4>Eligibility</h4>
-                            <p>Eligible to write (4)/(5) end-semester examination for all exams. All the Best!</p>
-                        </div>
-                        <div className="card">
-                            <h4>Average Attendance Record</h4>
-
-                            <div className="c100 p85">
-                                <span>85%</span>
-                                <div className="slice">
-                                    <div className="bar"></div>
-                                    <div className="fill"></div>
-                                </div>
-
-                            </div>
-
-                        </div>
-                    </div>
 
                 </main>
 
@@ -93,20 +67,19 @@ const StudentHome = ({ getAttendance, getCourses, logout, student: { loading, co
 }
 
 
-StudentHome.propTypes = {
+FacultyHome.propTypes = {
     getCourses: PropTypes.func.isRequired,
-    student: PropTypes.object.isRequired,
-    getAttendance: PropTypes.func.isRequired,
+    faculty: PropTypes.object.isRequired,
     auth: PropTypes.object.isRequired,
     logout: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
-    student: state.student,
+    faculty: state.faculty,
     auth: state.auth
 });
 
 export default connect(
     mapStateToProps,
-    { getCourses, getAttendance }
-)(StudentHome);
+    { getCourses, }
+)(FacultyHome);

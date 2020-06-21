@@ -65,100 +65,6 @@ body {
 }
 
 
-* {
-  padding: 0;
-  margin: 0;
-}
-
-body {
-  font-family: "Montserrat", sans-serif;
-}
-
-.content {
-  height: 100vh;
-  display: flex;
-
-}
-
-section {
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex: 1;
-  transition: all 0.5s;
-}
-
-section:hover {
-  flex: 2;
-}
-
-
-.student {
-  background: orange;
-  background-position: center;
-  background-size: cover;
-  background-blend-mode: multiply;
-}
-
-/*.student:hover{
-    filter: blur(5px);
-}*/
-
-
-.faculty {
-  background: #d2ff09;
-  background-position: center;
-  background-size: cover;
-  background-blend-mode: multiply;
-}
-
-
-.parent {
-  background: #09ff78;
-  background-position: center;
-  background-size: cover;
-  background-blend-mode: multiply;
-}
-
-.bln:hover {
-
-  color: #1ebba3;
-  font-weight: bold;
-}
-
-/* Navbar */
-.navbar {
-
-  text-transform: uppercase;
-  font-weight: 900;
-  font-size: 0.9rem;
-  letter-spacing: 0.1rem;
-  background-color: rgba(0, 0, 0, 0.75) !important;
-}
-
-.navbar-brand img {
-
-  height: 2.1rem;
-}
-
-.navbar-nav li {
-
-  padding-right: .7rem;
-}
-
-.navbar-dark .navbar-nav .nav-link {
-
-  color: #fff;
-  padding-top: .8rem;
-}
-
-.navbar-dark .navbar-nav .nav-link.active,
-.navbar-dark .navbar-nav .nav-link:hover {
-
-  color: #1ebba3;
-}
-
 
 /*--- Extra Bootstrap Column Padding --*/
 [class*="col-"] {
@@ -478,3 +384,98 @@ Extra (xl) large devices (large desktops, 1200px and up)
 @media (min-width: 1200px) { ... }
 
 =============*/
+
+
+* {
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  font-family: "Montserrat", sans-serif;
+}
+
+.content {
+  height: 100vh;
+  display: flex;
+
+}
+
+section {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  transition: all 0.5s;
+}
+
+section:hover {
+  flex: 2;
+}
+
+
+.student {
+  background: url('Student.jpg') orange;
+  background-position: center;
+  background-size: cover;
+  background-blend-mode: multiply;
+}
+
+/*.student:hover{
+    filter: blur(5px);
+}*/
+
+
+.faculty {
+  background: url('Hills.jpg') #d2ff09;
+  background-position: center;
+  background-size: cover;
+  background-blend-mode: multiply;
+}
+
+
+.parent {
+  background: url('Hills.jpg') #09ff78;
+  background-position: center;
+  background-size: cover;
+  background-blend-mode: multiply;
+}
+
+.bln:hover {
+
+  color: #1ebba3;
+  font-weight: bold;
+}
+
+/* Navbar */
+.navbar {
+
+  text-transform: uppercase;
+  font-weight: 900;
+  font-size: 0.9rem;
+  letter-spacing: 0.1rem;
+  background-color: rgba(0, 0, 0, 0.75) !important;
+}
+
+.navbar-brand img {
+
+  height: 2.1rem;
+}
+
+.navbar-nav li {
+
+  padding-right: .7rem;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+
+  color: #fff;
+  padding-top: .8rem;
+}
+
+.navbar-dark .navbar-nav .nav-link.active,
+.navbar-dark .navbar-nav .nav-link:hover {
+
+  color: #1ebba3;
+}

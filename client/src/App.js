@@ -15,6 +15,12 @@ import ParentLogin from './components/auth/parent/Login';
 
 //Student view
 import StudentHome from './components/dashboard/student/StudentHome';
+import StudentAttendance from './components/dashboard/student/Attendance'
+
+//Faculty view
+import FacultyHome from './components/dashboard/faculty/FacultyHome';
+import FacultyAttendance from './components/dashboard/faculty/Attendance'
+import StudentDetails from './components/dashboard/faculty/StudentDetails'
 
 
 // Redux
@@ -42,6 +48,13 @@ function App() {
             <Route exact path='/student/login' component={StudentLogin} />
             <Route exact path='/parent/login' component={ParentLogin} />
             <PrivateRoute exact path='/student/courses' component={StudentHome} />
+            <PrivateRoute exact path='/student/courses/:course' component={StudentAttendance} />
+            <PrivateRoute exact path='/faculty/courses' component={FacultyHome} />
+            <PrivateRoute exact path='/faculty/courses/:course' component={FacultyAttendance} />
+            <PrivateRoute exact path='/faculty/courses/:course' component={FacultyAttendance} />
+            <PrivateRoute exact path='/faculty/attendance/:course/:roll/:year' component={StudentDetails} />
+
+
           </Switch>
 
         </Fragment>
