@@ -4,7 +4,10 @@ import {
     GET_COURSES_STUDENT,
     GET_COURSE,
     POST_ERROR,
-    GET_ATTENDANCE
+    GET_ATTENDANCE,
+    GET_COMMENTS,
+    ADD_COMMENT,
+    GET_AVG
 } from './types';
 
 
@@ -56,6 +59,65 @@ export const getAttendance = (course) => async dispatch => {
         dispatch({
             type: POST_ERROR,
             payload: { msg: err.response, status: err.response }
+        });
+    }
+};
+
+// Get attendance for a course
+export const getAvg = (course) => async dispatch => {
+    try {
+        const res = await axios.get(`/api/student/attendance`);
+
+        dispatch({
+            type: GET_AVG,
+            payload: res.data
+        });
+    } catch (err) {
+        dispatch({
+            type: POST_ERROR,
+            payload: { msg: err.response, status: err.response }
+        });
+    }
+};
+
+// Get comment
+export const getComments = (course, year) => async dispatch => {
+    try {
+        const res = await axios.get(`/api/student/chat/${course}/${year}`);
+
+        dispatch({
+            type: GET_COMMENTS,
+            payload: res.data
+        });
+    } catch (err) {
+        dispatch({
+            type: POST_ERROR,
+            payload: { msg: err.response.statusText, status: err.response.status }
+        });
+    }
+};
+
+// Add post
+export const addComment = (formData, course, year) => async dispatch => {
+    const config = {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    };
+    console.log("WORKS");
+    try {
+        const res = await axios.post(`/api/student/chat/${course}/${year}`, formData, config);
+        console.log("FIRING");
+        dispatch({
+            type: ADD_COMMENT,
+            payload: res.data
+        });
+
+        dispatch(setAlert('Comment Created', 'success'));
+    } catch (err) {
+        dispatch({
+            type: POST_ERROR,
+            payload: { msg: err.response, status: err.response.status }
         });
     }
 };

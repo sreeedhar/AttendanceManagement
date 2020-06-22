@@ -5,12 +5,20 @@ import {
     GET_ATTENDANCE,
     GET_STUDENTS,
     MARK,
-    GET_STUDENT_ATTENDANCE
+    GET_STUDENT_ATTENDANCE,
+    GET_COMMENTS,
+    ADD_COMMENT,
+    UPDATE,
+    ARCHIVE,
+    UNARCHIVE,
+    ADD_POST
 } from '../actions/types';
 
 const initialState = {
     attendance: [],
     studentRecords: [],
+    comments: [],
+    comment: null,
     courses: [],
     students: [],
     course: null,
@@ -35,7 +43,12 @@ export default function (state = initialState, action) {
                 attendance: payload,
                 loading: false
             };
-
+        case ADD_POST:
+            return {
+                ...state,
+                courses: [payload, ...state.courses],
+                loading: false
+            };
         case GET_STUDENT_ATTENDANCE:
             return {
                 ...state,
@@ -49,6 +62,13 @@ export default function (state = initialState, action) {
                 students: payload,
                 loading: false
             };
+
+        case GET_COMMENTS:
+            return {
+                ...state,
+                comments: payload,
+                loading: false
+            };
         case GET_COURSE:
             return {
                 ...state,
@@ -60,6 +80,40 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 attendance: [payload, ...state.attendance],
+                loading: false
+            };
+
+        case UPDATE:
+            return {
+                ...state,
+                attendance: state.attendance.map(record => (
+                    record.id === payload.id ? payload : record
+                )),
+                loading: false
+            };
+
+        case ARCHIVE:
+            return {
+                ...state,
+                courses: state.courses.map(record => (
+                    record.id === payload.id ? payload : record
+                )),
+                loading: false
+            };
+
+        case UPDATE:
+            return {
+                ...state,
+                courses: state.courses.map(record => (
+                    record.id === payload.id ? payload : record
+                )),
+                loading: false
+            };
+
+        case ADD_COMMENT:
+            return {
+                ...state,
+                comment: [payload, ...state.comments],
                 loading: false
             };
 

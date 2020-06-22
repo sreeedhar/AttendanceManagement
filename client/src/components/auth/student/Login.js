@@ -61,6 +61,8 @@ const StudentLogin = ({ setAlert, studentRegister, loginStudent, isAuthenticated
 
     return (
         <div className="body">
+            <h1 style={{ textAlign: "center", fontWeight: "700", fontSize: "55" }}><b>Student Login</b></h1>
+
             <div className="container" id="container">
                 <div className="form-container sign-up-container">
                     <form action="#" onSubmit={e => register(e)}>

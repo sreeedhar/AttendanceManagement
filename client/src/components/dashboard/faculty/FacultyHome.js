@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { getCourses, } from '../../../actions/faculty';
 import { logout } from '../../../actions/auth';
 import Card from './Card'
+import CreateCourse from './CreateCourse'
 import Sidebar from './Sidebar'
 import './style.css'
 
@@ -14,6 +15,13 @@ const FacultyHome = ({ getCourses, logout, faculty: { loading, courses }, auth: 
     useEffect(() => {
         getCourses();
     }, [getCourses]);
+
+    let ongoing = courses.filter(course => {
+        if (course.archived == 0) return course;
+    });
+
+    console.log(ongoing);
+
     return loading ? (
         <Spinner />
     ) : (
@@ -40,16 +48,21 @@ const FacultyHome = ({ getCourses, logout, faculty: { loading, courses }, auth: 
                         </div>
                     </div>
 
+
+                    <h1 style={{ paddingLeft: "26px" }}>Ongoing courses: </h1>
                     <div className="main-overview" style={{ color: "white" }}>
-                        {courses.map(course => (
+
+                        {ongoing.map(course => (
                             <ul>
-                                <Link to={`/faculty/courses/${course.course}`}>
-                                    <Card course={course} />
-                                </Link>
+                                <Card course={course} />
+
                             </ul>
+
                         ))}
                     </div>
 
+
+                    <br />
 
                 </main>
 
@@ -60,7 +73,7 @@ const FacultyHome = ({ getCourses, logout, faculty: { loading, courses }, auth: 
 
 
 
-            </div>
+            </div >
 
         )
 

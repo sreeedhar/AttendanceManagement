@@ -38,7 +38,8 @@ router.post("/register", [
         email,
         password,
         name,
-        roll
+        roll,
+        year
     } = req.body;
 
     const errors = validationResult(req);
@@ -71,12 +72,14 @@ router.post("/register", [
                         password: hash,
                         name: name,
                         roll: roll,
+                        year: year
 
                     }).then(newParent => {
                         const payload = {
                             email: email,
                             name: name,
                             roll: roll,
+                            year: year
                         }
 
                         jwt.sign(
@@ -130,7 +133,8 @@ router.post("/login", check('email', 'Please include a valid email').isEmail(),
                             const payload = {
                                 email: user.email,
                                 name: user.name,
-                                roll: user.roll
+                                roll: user.roll,
+                                year: user.year
                             }
 
                             jwt.sign(
@@ -170,6 +174,192 @@ router.get(
         res.json(req.user);
     }
 );
+
+// @route   GET api/comment/:id
+// @desc    Get comment
+// @access  Public
+router.get('/chat/:course/:year', (req, res) => {
+    db.Chat.findAll({
+        where: {
+            course: req.params.course,
+            year: req.params.year
+        }
+    })
+        .then(comments => res.json(comments))
+        .catch(err => res.status(404).json({
+            error: 'No comments found'
+        }))
+});
+
+
+// @route   GET api/comment/:id
+// @desc    Get comment
+// @access  Public
+router.post('/chat/:course/:year', passport.authenticate('parent', {
+    session: false
+}), (req, res) => {
+    db.Chat.create({
+        from: req.user.name,
+        course: req.params.course,
+        year: req.params.year,
+        msg: req.body.msg
+    })
+        .then(chat => res.json(chat))
+        .catch(err => console.error(err.message));
+});
+
+
+// @route   GET api/parents/courses
+// @desc    Get courses of that batch
+// @access  Private
+router.get('/courses', passport.authenticate('parent', {
+    session: false
+}), (req, res) => {
+    db.Student.findOne({
+        where: {
+            roll: req.user.roll
+        }
+    }
+    )
+        .then(student => {
+            db.Course.findAll({
+                where: {
+                    year: req.user.year,
+                    dept: student.dept
+                }
+            })
+                .then(courses => res.json(courses))
+                .catch(err =>
+                    res.status(404).json({
+                        nopostfound: 'No post found with that ID'
+                    })
+                );
+        })
+
+});
+
+// @route   GET api/parent/courses/:course
+// @desc    Get course by year and course name
+// @access  Public
+router.get('/courses/:course', passport.authenticate('parent', {
+    session: false
+}), (req, res) => {
+    db.Course.findAll({
+        where: {
+            year: req.user.year,
+            course: req.params.course
+        }
+    })
+        .then(courses => res.json(courses))
+        .catch(err =>
+            res.status(404).json({
+                nopostfound: 'No post found with that ID'
+            })
+        );
+});
+
+// @route   GET api/faculty/attendance/:year/:roll
+// @desc    Get attendance of a parent
+// @access  Private
+router.get('/attendance/:course', passport.authenticate('parent', {
+    session: false
+}), (req, res) => {
+
+
+    db.Attendance.findAll({
+        where: {
+            roll: req.user.roll,
+            year: req.user.year,
+            course: req.params.course
+        }
+    })
+        .then(records => {
+            res.json(records);
+        })
+        .catch(err => console.log(err.message));
+});
+
+
+// @route   GET api/faculty/attendance/:year/:roll
+// @desc    Get attendance of a student
+// @access  Private
+router.get('/attendance', passport.authenticate('parent', {
+    session: false
+}), (req, res) => {
+
+    db.Attendance.findAll({
+        where: {
+            roll: req.user.roll,
+            year: req.user.year,
+        }
+    })
+        .then(records => {
+            let total = records.length;
+            let present = 0;
+            records.map(record => {
+                if (record.status === "Present") present++;
+            })
+            let avg = present / total * 100
+            res.json({
+                present: present,
+                avg: avg
+            })
+        })
+        .catch(err => console.log(err.message));
+});
+
+
+// @route   GET api/faculty/attendance/:year/:roll
+// @desc    Get attendance of a parent
+// @access  Private
+router.get('/attendance/:course', passport.authenticate('parent', {
+    session: false
+}), (req, res) => {
+
+    db.Attendance.findAll({
+        where: {
+            roll: req.user.roll,
+            year: req.user.year,
+            course: req.params.course
+        }
+    })
+        .then(records => {
+            res.json(records);
+        })
+        .catch(err => console.log(err.message));
+});
+
+// @route   GET api/faculty/attendance/:year/:roll
+// @desc    Get attendance of a parent
+// @access  Private
+router.get('/percent/:course', passport.authenticate('parent', {
+    session: false
+}), (req, res) => {
+
+    db.Attendance.findAll({
+        where: {
+            roll: req.user.roll,
+            year: req.user.year,
+            course: req.params.course
+        }
+    })
+        .then(records => {
+            let present = 0;
+            let total = 0;
+            records.map(record => {
+                total++;
+                if (record.status === "Present") present++;
+            })
+
+            res.send({
+                Present: present,
+                Absent: total - present,
+                Percent: present / total * 100
+            })
+        })
+        .catch(err => console.log(err.message));
+});
+
 
 
 module.exports = router;

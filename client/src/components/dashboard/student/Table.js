@@ -3,8 +3,6 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux';
 
 const Table = ({ index, record: { date, roll, name, id, status } }) => {
-    console.log(index);
-
     return (
 
         <tr>

@@ -249,11 +249,10 @@ router.get('/attendance/:course', passport.authenticate('student', {
         .catch(err => console.log(err.message));
 });
 
-
 // @route   GET api/faculty/attendance/:year/:roll
 // @desc    Get attendance of a student
 // @access  Private
-router.get('/attendance/:course', passport.authenticate('student', {
+router.get('/attendance', passport.authenticate('student', {
     session: false
 }), (req, res) => {
 
@@ -261,11 +260,58 @@ router.get('/attendance/:course', passport.authenticate('student', {
         where: {
             roll: req.user.roll,
             year: req.user.year,
-            course: req.params.course
         }
     })
         .then(records => {
-            res.json(records);
+            let total = records.length;
+            let present = 0;
+            records.map(record => {
+                if (record.status === "Present") present++;
+            })
+            let avg = present / total * 100
+            res.json({
+                present: present,
+                avg: avg
+            })
+        })
+        .catch(err => console.log(err.message));
+});
+
+// @route   GET api/faculty/attendance/:year/:roll
+// @desc    Get attendance of a student
+// @access  Private
+router.get('/subs', passport.authenticate('student', {
+    session: false
+}), (req, res) => {
+
+    var keys = [];
+    var obj = new Object();
+
+    function countInArray(array, what) {
+        var count = 0;
+        for (var i = 0; i < array.length; i++) {
+            if (array[i] === what) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    db.Attendance.findAll({
+        where: {
+            roll: req.user.roll,
+            year: req.user.year
+        }
+    })
+        .then(records => {
+            keys = records.keys();
+            res.json(keys);
+            console.log(keys);
+            for (var key in keys) {
+                console.log(key);
+                obj.key = 0;
+            }
+            console.log(obj);
         })
         .catch(err => console.log(err.message));
 });
@@ -301,48 +347,39 @@ router.get('/percent/:course', passport.authenticate('student', {
         .catch(err => console.log(err.message));
 });
 
-// @route   GET api/faculty/attendance/:year/:roll
-// @desc    Get attendance of a student
-// @access  Private
-router.get('/percent', passport.authenticate('student', {
-    session: false
-}), async (req, res) => {
-    var arr = [];
-    db.Course.findAll({
+
+// @route   GET api/comment/:id
+// @desc    Get comment
+// @access  Public
+router.get('/chat/:course/:year', (req, res) => {
+    db.Chat.findAll({
         where: {
-            dept: req.user.dept,
-            year: req.user.year
+            course: req.params.course,
+            year: req.params.year
         }
     })
-        .then(async courses => {
-            const ans = await courses.map(course => {
-                db.Attendance.findAll({
-                    where: {
-                        roll: req.user.roll,
-                        year: req.user.year,
-                        course: course.course
-                    }
-                })
-                    .then(records => {
-                        let present = 0;
-                        let total = 0;
-                        records.map(record => {
-                            total++;
-                            if (record.status === "Present") present++;
-                        })
-
-
-                        ans.push({
-                            course: course.course,
-                            present: present,
-                            percent: present / total * 100
-                        })
-                    })
-
-            })
-            console.log(await Promise.all(ans));
-        })
-
+        .then(comments => res.json(comments))
+        .catch(err => res.status(404).json({
+            error: 'No comments found'
+        }))
 });
+
+
+// @route   GET api/comment/:id
+// @desc    Get comment
+// @access  Public
+router.post('/chat/:course/:year', passport.authenticate('student', {
+    session: false
+}), (req, res) => {
+    db.Chat.create({
+        from: req.user.name,
+        course: req.params.course,
+        year: req.params.year,
+        msg: req.body.msg
+    })
+        .then(chat => res.json(chat))
+        .catch(err => console.error(err.message));
+});
+
 
 module.exports = router;

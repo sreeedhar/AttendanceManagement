@@ -13,10 +13,11 @@ const ParentLogin = ({ setAlert, parentRegister, loginParent, isAuthenticated })
         email: '',
         password: '',
         name: '',
-        roll: ''
+        roll: '',
+        year: ''
     });
 
-    const { name, email, password, roll } = formData;
+    const { name, email, password, roll, year } = formData;
 
     const signUpButton = document.getElementById('signUp');
     const signInButton = document.getElementById('signIn');
@@ -48,7 +49,7 @@ const ParentLogin = ({ setAlert, parentRegister, loginParent, isAuthenticated })
     const register = async e => {
         e.preventDefault();
         console.log(formData);
-        parentRegister({ name, email, password, roll });
+        parentRegister({ name, email, password, roll, year });
     };
 
     //if isAuthenticated
@@ -59,6 +60,8 @@ const ParentLogin = ({ setAlert, parentRegister, loginParent, isAuthenticated })
 
     return (
         <div className="body">
+            <h1 style={{ textAlign: "center", fontWeight: "700", fontSize: "50" }}><b>Parent Login</b></h1>
+
             <div className="container" id="container">
                 <div className="form-container sign-up-container">
                     <form action="#" onSubmit={e => register(e)}>
@@ -70,6 +73,8 @@ const ParentLogin = ({ setAlert, parentRegister, loginParent, isAuthenticated })
                         <input type="password" placeholder="Password" value={password} name='password'
                             onChange={e => onChange(e)} />
                         <input type="text" placeholder="Roll no of ward" value={roll} name='roll'
+                            onChange={e => onChange(e)} />
+                        <input type="text" placeholder="Year of joining" value={year} name='year'
                             onChange={e => onChange(e)} />
                         <button type="submit">Sign Up</button>
                     </form>

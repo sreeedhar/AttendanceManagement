@@ -293,7 +293,6 @@ h3.team-name {
 
 
 h2.contact-title {
-
   text-align: center;
   font-size: 1.9rem;
   text-transform: uppercase;
@@ -416,19 +415,29 @@ section:hover {
 
 
 .student {
-  background: url('Student.jpg') orange;
+  background: url('Student.jpg');
   background-position: center;
   background-size: cover;
   background-blend-mode: multiply;
 }
 
-/*.student:hover{
-    filter: blur(5px);
-}*/
+.student:hover {
+  background: url('Student.jpg') #85929E;
+  background-position: center;
+  background-size: cover;
+  background-blend-mode: multiply;
+}
 
 
 .faculty {
-  background: url('Hills.jpg') #d2ff09;
+  background: url('Professor.jpg');
+  background-position: center;
+  background-size: cover;
+  background-blend-mode: multiply;
+}
+
+.faculty:hover {
+  background: url('Professor.jpg') #85929E;
   background-position: center;
   background-size: cover;
   background-blend-mode: multiply;
@@ -436,7 +445,14 @@ section:hover {
 
 
 .parent {
-  background: url('Hills.jpg') #09ff78;
+  background: url('Parent.jpg');
+  background-position: center;
+  background-size: cover;
+  background-blend-mode: multiply;
+}
+
+.parent:hover {
+  background: url('Parent.jpg') #85929E;
   background-position: center;
   background-size: cover;
   background-blend-mode: multiply;

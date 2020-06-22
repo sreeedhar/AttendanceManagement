@@ -16,6 +16,10 @@ module.exports = (sequelize, DataTypes) => {
         roll: {
             type: DataTypes.STRING,
             allowNull: false,
+        },
+        year: {
+            type: DataTypes.STRING,
+            allowNull: false,
         }
     });
     return Parent;

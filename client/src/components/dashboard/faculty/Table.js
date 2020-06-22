@@ -32,8 +32,9 @@ const Table = ({ course, date, index, record: { roll, name, year }, markAttendan
             <td style={{ fontWeight: "700" }}>{name}</td>
             <td style={{ fontWeight: "700", fontSize: "36" }}>{date}</td>
             <td><select name="status" value={status} onChange={e => onChange(e)}>
-                <option value="volvo">Present</option>
-                <option value="saab">Absent</option>
+                <option value="Choose">Choose</option>
+                <option value="Present">Present</option>
+                <option value="Absent" >Absent</option>
             </select></td>
             <td><button style={{ textAlign: "center" }} type="submit" onClick={e => Submit(e)}>Mark</button></td>
         </tr>
@@ -41,7 +42,7 @@ const Table = ({ course, date, index, record: { roll, name, year }, markAttendan
 }
 
 Table.propTypes = {
-    student: PropTypes.object.isRequired,
+    faculty: PropTypes.object.isRequired,
     auth: PropTypes.object.isRequired,
     showActions: PropTypes.bool,
     markAttendance: PropTypes.func.isRequired,
@@ -49,7 +50,7 @@ Table.propTypes = {
 
 const mapStateToProps = state => ({
     auth: state.auth,
-    student: state.student
+    faculty: state.faculty
 });
 
 export default connect(

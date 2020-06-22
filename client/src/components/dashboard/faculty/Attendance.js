@@ -34,13 +34,21 @@ const FacultyAttendance = ({ getStudents, faculty: { students, courses }, auth: 
     return students.length > 0 ? (
         <Fragment>
             <div className="grid-container">
+                <div className="menu-icon">
+                    <i className="fas fa-bars header__menu"></i>
+                </div>
+
+                <header className="header">
+                    <div className="header__search"><img src={require("./SecondaryReversedLogo.png")} style={{ height: "3.5rem" }} alt="see" /></div>
+                    <div className="header__logo">Attendance DashBoard</div>
+                </header>
                 <Sidebar user={user} />
 
                 <div>
 
 
-                    <h1>Course: {match.params.course} </h1>x
-                    <label><b>Choose date: </b></label>
+                    <h1 style={{ paddingLeft: "100px", paddingTop: "15px" }}>{match.params.course} </h1>
+                    <h5 style={{ paddingLeft: "25px" }}><b>Choose date: </b></h5>
                     <input type="date" name="date" value={date} onChange={e => onChange(e)} />
 
                     <table id="attendance-table" className="table table-bordered table-striped">

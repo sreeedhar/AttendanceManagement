@@ -13,16 +13,66 @@ const StudentDetails = ({ getStudentAttendance, faculty: { studentRecords, cours
         getStudentAttendance(match.params.year, match.params.roll, match.params.course);
     }, [getStudentAttendance], match.params.course, match.params.roll, match.params.year);
 
+    let present = 0;
+    let total = 0;
+    let last = studentRecords[studentRecords.length - 1];
+    console.log(studentRecords);
+    if (studentRecords)
+        console.log(typeof (last));
+    if (studentRecords.length > 0) {
+        studentRecords.map(record => {
+            total++;
+            if (record.status === "Present")
+                present++;
+        })
+    }
+
+    let percent = Math.ceil(present * 100 / total);
 
     return studentRecords.length > 0 ? (
         <Fragment>
             <div className="grid-container">
+                <div className="menu-icon">
+                    <i className="fas fa-bars header__menu"></i>
+                </div>
+
+                <header className="header">
+                    <div className="header__search"><img src={require("./SecondaryReversedLogo.png")} style={{ height: "3.5rem" }} alt="see" /></div>
+                    <div className="header__logo">Attendance DashBoard</div>
+                </header>
                 <Sidebar user={user} />
 
                 <div>
 
 
-                    <h1>Course: {match.params.course} </h1>x
+                    <h1 style={{ paddingLeft: "100px", paddingTop: "15px" }}>{match.params.course} </h1>
+                    <div className="main-cards">
+                        <div className="card" style={{ color: "white" }}>
+                            <h2>Average Attendance Record</h2>
+
+                            <div className={`c100 p${percent} big`}>
+                                <span>{percent}%</span>
+                                <div className="slice">
+                                    <div className="bar"></div>
+                                    <div className="fill"></div>
+                                </div>
+
+                            </div>
+
+
+                        </div>
+
+                        {percent >= 75 ? <div className="card" style={{ backgroundColor: "green", color: "white" }}>
+                            <h4><u>Eligibility (cut-off 75%):</u></h4>
+                            <h1> Eligible </h1>
+                        </div> : <div className="card" style={{ backgroundColor: "red", color: "white" }}>
+                                <h4><u>Eligibility (cut-off 75%)</u></h4>
+                                <h1> Not Eligible </h1>
+                            </div>}
+
+                    </div>
+
+
 
                     <table id="attendance-table" className="table table-bordered table-striped">
                         <thead className="thead-dark heading">
@@ -38,7 +88,7 @@ const StudentDetails = ({ getStudentAttendance, faculty: { studentRecords, cours
                         <tbody id="myTable">
 
                             {studentRecords.map((record, index) => (
-                                < DetailsRow record={record} index={index + 1} course={match.params.course} />
+                                < DetailsRow record={record} index={index + 1} course={match.params.course} year={match.params.year} />
                             )
                             )}
                         </tbody>
@@ -51,7 +101,7 @@ const StudentDetails = ({ getStudentAttendance, faculty: { studentRecords, cours
         (
             <div className="grid-container">
                 <Sidebar user={user} />
-                <h1>No records created for {match.params.course} yet.</h1>
+                <h1>No records created for {match.params.roll} yet.</h1>
 
 
             </div>

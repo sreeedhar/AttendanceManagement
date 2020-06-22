@@ -2,12 +2,17 @@ import {
     GET_COURSE,
     GET_COURSES_STUDENT,
     POST_ERROR,
-    GET_ATTENDANCE
+    GET_ATTENDANCE,
+    GET_COMMENTS,
+    ADD_COMMENT,
+    GET_AVG
 } from '../actions/types';
 
 const initialState = {
+    avg: [],
     attendance: [],
     courses: [],
+    comments: [],
     course: null,
     post: null,
     loading: true,
@@ -30,6 +35,12 @@ export default function (state = initialState, action) {
                 attendance: payload,
                 loading: false
             };
+        case GET_AVG:
+            return {
+                ...state,
+                avg: payload,
+                loading: false
+            };
         case GET_COURSE:
             return {
                 ...state,
@@ -43,7 +54,18 @@ export default function (state = initialState, action) {
                 error: payload,
                 loading: false
             };
-
+        case GET_COMMENTS:
+            return {
+                ...state,
+                comments: payload,
+                loading: false
+            };
+        case ADD_COMMENT:
+            return {
+                ...state,
+                comment: [payload, ...state.comments],
+                loading: false
+            };
 
         default:
             return state;

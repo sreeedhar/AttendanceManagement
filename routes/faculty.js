@@ -243,6 +243,58 @@ router.get('/courses', passport.authenticate('faculty', {
         );
 });
 
+// @route   GET api/faculty/courses
+// @desc    Get all courses offered by faculty
+// @access  Private
+router.put('/archive/:course/:year', passport.authenticate('faculty', {
+    session: false
+}), (req, res) => {
+    db.Course.findOne({
+        where: {
+            faculty: req.user.name,
+            course: req.params.course,
+            year: req.params.year,
+            archived: 0
+        }
+    })
+        .then(course => {
+            course.archived = 1;
+            course.save();
+            res.json(course);
+        })
+        .catch(err =>
+            res.status(404).json({
+                nopostfound: 'No post found with that ID'
+            })
+        );
+});
+
+// @route   GET api/faculty/courses
+// @desc    Get all courses offered by faculty
+// @access  Private
+router.put('/unarchive/:course/:year', passport.authenticate('faculty', {
+    session: false
+}), (req, res) => {
+    db.Course.findOne({
+        where: {
+            faculty: req.user.name,
+            course: req.params.course,
+            year: req.params.year,
+            archived: 1
+        }
+    })
+        .then(course => {
+            course.archived = 0;
+            course.save();
+            res.json(course);
+        })
+        .catch(err =>
+            res.status(404).json({
+                nopostfound: 'No post found with that ID'
+            })
+        );
+});
+
 // @route   GET api/faculty/courses/:year/:course
 // @desc    Get course by year and course name
 // @access  Private
@@ -311,7 +363,7 @@ router.post('/attendance/:year/:roll/:course', passport.authenticate('faculty', 
                 .then(course => {
                     db.Attendance.create({
                         roll: req.params.roll,
-                        course: course.course,
+                        course: req.params.course,
                         year: req.params.year,
                         name: student.name,
                         date: date,
@@ -387,8 +439,38 @@ router.put('/attendance/:year/:roll/:course/:date', passport.authenticate('facul
         })
 });
 
+// @route   GET api/comment/:id
+// @desc    Get comment
+// @access  Public
+router.get('/chat/:course/:year', (req, res) => {
+    db.Chat.findAll({
+        where: {
+            course: req.params.course,
+            year: req.params.year
+        }
+    })
+        .then(comments => res.json(comments))
+        .catch(err => res.status(404).json({
+            error: 'No comments found'
+        }))
+});
 
 
+// @route   GET api/comment/:id
+// @desc    Get comment
+// @access  Public
+router.post('/chat/:course/:year', passport.authenticate('faculty', {
+    session: false
+}), (req, res) => {
+    db.Chat.create({
+        from: req.user.name,
+        course: req.params.course,
+        year: req.params.year,
+        msg: req.body.msg
+    })
+        .then(chat => res.json(chat))
+        .catch(err => console.error(err.message));
+});
 
 
 module.exports = router;

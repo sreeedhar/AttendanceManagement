@@ -3,17 +3,30 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Spinner from '../../layout/Spinner';
 import { connect } from 'react-redux';
-import { getCourses, getAttendance } from '../../../actions/student';
+import { getCourses, getAttendance, getAvg } from '../../../actions/student';
 import { logout } from '../../../actions/auth';
 import Card from './Card'
 import Sidebar from './Sidebar'
 import './style.css'
+import LineChart from './Line Chart';
 
-const StudentHome = ({ getAttendance, getCourses, logout, student: { loading, courses }, auth: { user } }) => {
+const StudentHome = ({ getAvg, getAttendance, getCourses, logout, student: { loading, courses, avg }, auth: { user } }) => {
 
     useEffect(() => {
         getCourses();
     }, [getCourses]);
+
+    useEffect(() => {
+        getAvg();
+    }, [getAvg]);
+
+    let percent = Math.ceil(avg.avg);
+
+    let ongoing = courses.filter(course => {
+        if (course.archived == 0) return course;
+    });
+
+
     return loading ? (
         <Spinner />
     ) : (
@@ -43,38 +56,33 @@ const StudentHome = ({ getAttendance, getCourses, logout, student: { loading, co
                         </div>
                     </div>
 
+                    <h1 style={{ paddingLeft: "26px" }}>Ongoing courses: </h1>
                     <div className="main-overview" style={{ color: "white" }}>
-                        {courses.map(course => (
-                            <ul>
-                                <Link to={`/student/courses/${course.course}`}>
-                                    <Card course={course} />
-                                </Link>
-                            </ul>
+
+                        {ongoing.map(course => (
+
+                            <Card course={course} />
+
+
                         ))}
                     </div>
 
-                    <div className="main-cards">
-                        <div className="card">
-                            <h4>Attendance Track Record</h4>
-                            <canvas id="lineChart"></canvas>
-                        </div>
-                        <div className="card">
-                            <h4>Eligibility</h4>
-                            <p>Eligible to write (4)/(5) end-semester examination for all exams. All the Best!</p>
-                        </div>
-                        <div className="card">
-                            <h4>Average Attendance Record</h4>
+                    <br />
+                    <br />
 
-                            <div className="c100 p85">
-                                <span>85%</span>
-                                <div className="slice">
-                                    <div className="bar"></div>
-                                    <div className="fill"></div>
-                                </div>
 
+                    <div className="card">
+                        <h2><b>Average Attendance Record</b></h2>
+                        <h6>Number of classes attended till date : {avg.present}</h6>
+                        <div className={`c100 p${percent}`}>
+                            <span><b>{percent}%</b></span>
+                            <div className="slice">
+                                <div className="bar"></div>
+                                <div className="fill"></div>
                             </div>
 
                         </div>
+
                     </div>
 
                 </main>
@@ -95,6 +103,7 @@ const StudentHome = ({ getAttendance, getCourses, logout, student: { loading, co
 
 StudentHome.propTypes = {
     getCourses: PropTypes.func.isRequired,
+    getAvg: PropTypes.func.isRequired,
     student: PropTypes.object.isRequired,
     getAttendance: PropTypes.func.isRequired,
     auth: PropTypes.object.isRequired,
@@ -108,5 +117,5 @@ const mapStateToProps = state => ({
 
 export default connect(
     mapStateToProps,
-    { getCourses, getAttendance }
+    { getCourses, getAttendance, getAvg }
 )(StudentHome);

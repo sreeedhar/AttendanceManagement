@@ -154,14 +154,14 @@ export const facultyRegister = ({ email, password, name, dept }) => async dispat
 };
 
 // Register faculty
-export const parentRegister = ({ email, password, name, roll }) => async dispatch => {
+export const parentRegister = ({ email, password, name, roll, year }) => async dispatch => {
     const config = {
         headers: {
             'Content-Type': 'application/json'
         }
     };
 
-    const body = JSON.stringify({ email, password, name, roll });
+    const body = JSON.stringify({ email, password, name, roll, year });
 
     try {
         const res = await axios.post('/api/parent/register', body, config);
