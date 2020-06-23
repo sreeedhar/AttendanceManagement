@@ -18,7 +18,7 @@ const StudentAttendance = ({ getCourses, getAttendance, student: { attendance, c
     useEffect(() => {
         getCourses();
 
-    }, [getCourses()]);
+    }, [getCourses]);
 
     let name;
     courses.map(record => {
@@ -47,7 +47,7 @@ const StudentAttendance = ({ getCourses, getAttendance, student: { attendance, c
         <div className="grid-container">
             <Sidebar user={user} />
             <div>
-                <h1 style={{ paddingLeft: "100px", paddingTop: "15px" }}>{match.params.course} - {name}</h1><br />
+                <h1 style={{ paddingLeft: "100px", paddingTop: "15px" }}>{match.params.course}- {name} </h1>
                 <div className="main-cards">
                     <div className="card" style={{ color: "white" }}>
                         <h2>Average Attendance Record</h2>
@@ -101,6 +101,8 @@ const StudentAttendance = ({ getCourses, getAttendance, student: { attendance, c
         (
             <div className="grid-container">
                 <Sidebar user={user} />
+                <h1 style={{ paddingLeft: "100px", paddingTop: "15px" }}>{match.params.course} - {name}</h1>
+
                 <h1 style={{ paddingLeft: "100px", paddingTop: "25px" }}>No records created for {match.params.course} yet.</h1>
 
 

@@ -14,6 +14,12 @@ const StuRoom = ({ getCourses, logout, student: { loading, courses }, auth: { us
     useEffect(() => {
         getCourses();
     }, [getCourses]);
+
+    let ongoing = courses.filter(course => {
+        if (course.archived == 0) return course;
+    });
+
+
     return loading ? (
         <Spinner />
     ) : (
@@ -29,13 +35,12 @@ const StuRoom = ({ getCourses, logout, student: { loading, courses }, auth: { us
                     <h1 style={{ marginLeft: "100px", marginTop: "20px" }}>Chatrooms: </h1>
 
                     <div className="main-overview" style={{ color: "white" }}>
-                        {courses.map((course, i) => (
-                            <ul key={i}>
-                                <Link to={`/student/chat/${course.course}/${course.year}`}>
-                                    <Card course={course} />
-                                </Link>
-                            </ul>
-                        ))}
+                        {ongoing.map((course, i) => (
+                            <Link to={`/student/chat/${course.course}/${course.year}`}>
+
+                                <Card course={course} />
+
+                            </Link>))}
                     </div>
 
 

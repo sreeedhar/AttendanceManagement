@@ -14,6 +14,12 @@ const ParentRoom = ({ getCourses, logout, student: { loading, courses }, auth: {
     useEffect(() => {
         getCourses();
     }, [getCourses]);
+
+    let ongoing = courses.filter(course => {
+        if (course.archived == 0) return course;
+    });
+
+
     return loading ? (
         <Spinner />
     ) : (
@@ -29,13 +35,12 @@ const ParentRoom = ({ getCourses, logout, student: { loading, courses }, auth: {
                     <h1 style={{ marginLeft: "100px", marginTop: "20px" }}>Chatrooms: </h1>
 
                     <div className="main-overview" style={{ color: "white" }}>
-                        {courses.map((course, i) => (
-                            <ul key={i}>
-                                <Link to={`/parent/chat/${course.course}/${course.year}`}>
-                                    <Card course={course} />
-                                </Link>
-                            </ul>
-                        ))}
+                        {ongoing.map((course, i) => (
+                            <Link to={`/parent/chat/${course.course}/${course.year}`}>
+
+                                <Card course={course} />
+
+                            </Link>))}
                     </div>
 
 

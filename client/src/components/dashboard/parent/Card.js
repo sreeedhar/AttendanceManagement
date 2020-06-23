@@ -8,10 +8,7 @@ export const Card = ({ auth,
     return (
 
         <div className="overviewcard">
-            <Link to={`/faculty/courses/${course}`}><h2 style={{ color: "white", textAlign: "center" }}>{course}</h2></Link>
-            <div className="overviewcard__icon">
-                <h4 style={{ color: "white" }}>Faculty: {faculty}</h4>
-            </div>
+            <Link to={`/parent/courses/${course}`}><h2 style={{ color: "white", textAlign: "center" }}>{course}</h2></Link>
         </div>
 
 
