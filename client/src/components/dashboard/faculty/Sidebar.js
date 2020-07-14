@@ -13,7 +13,7 @@ export const Sidebar = ({ auth: { isAuthenticated, loading, user }, logout }) =>
                 <i className="fas fa-times sidenav__brand-close"></i>
             </div>
             <ul className="sidenav__list">
-                <li className="sidenav__list-item-avt" style={{ marginRight: "20px" }} ><img src={require(`Dummy.jpeg`)} style={{ height: "125px", borderRadius: "50%" }} alt="Student Avatar" /></li>
+                <li className="sidenav__list-item-avt" style={{ marginRight: "20px" }} ><img src={require(`./Dummy.jpeg`)} style={{ height: "125px", borderRadius: "50%" }} alt="Student Avatar" /></li>
                 <li className="sidenav__list-item"><b style={{ fontWeight: "700px", fontSize: "22px" }}>Welcome,<br />{user.name}!</b></li>
 
                 <li className="sidenav__list-item"><Link style={{ color: "white", fontWeight: "500px" }} to="/faculty/courses"><b>Dashboard</b></Link></li>

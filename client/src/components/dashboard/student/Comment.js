@@ -15,7 +15,7 @@ const Comment = ({ faculty: { loading }, comment: { msg, from, createdAt }, auth
                 <div>
                     <div className="comment-box">
                         <span className="commenter-pic">
-                            <img src={require(`./${from}.jpeg`)} className="img-fluid" />
+                            <img src={require(`./Dummy.jpeg`)} className="img-fluid" />
                         </span>
                         <span className="commenter-name">
                             <a href="#">{from}</a> <span className="comment-time"><Moment format="DD/MM/YYYY" >{createdAt}</Moment></span>
