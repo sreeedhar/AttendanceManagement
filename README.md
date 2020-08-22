@@ -2,16 +2,16 @@
 ## Tech stack
 
 ### Front-end
-ReactJS for building the front-end
-Redux for state management
-Axios to communicate with REST API
+1. ReactJS for building the front-end
+2. Redux for state management
+3. Axios to communicate with REST API
 
 ### Back-end
-NodeJS to create the server
-ExpressJS to build the REST API
-PassportJS + JWT for authorization/authentication
-BCryptJS for securing passwords
-MySQL + Sequelize for the database
+1. NodeJS to create the server
+2. ExpressJS to build the REST API
+3. PassportJS + JWT for authorization/authentication
+4. BCryptJS for securing passwords
+5. MySQL + Sequelize for the database
 
 
 ## Screenshots - 
